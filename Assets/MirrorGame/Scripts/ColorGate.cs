@@ -26,16 +26,18 @@ public class ColorGate : MonoBehaviour
             if (index == 1)
             {
                 manager.SetNextColor(1, 2);
-                Position1();
             }
             if (index == 2)
             {
                 manager.SetNextColor(3, 6);
-                Position2();
+            }
+            if (index == 3)
+            {
+                manager.SetNextColor();
             }
 
-            NoticeChange(Camera.main);
             MoveToNewPosition();
+            NoticeChange(Camera.main);
         }
     }
 
@@ -95,6 +97,21 @@ public class ColorGate : MonoBehaviour
     private void Position2()
     {
         Vector3 destination = new Vector3(Random.Range(57.5f, 98), 1, Random.Range(13.5f, 1.2f));
+        this.transform.localPosition = destination;
+    }
+
+    private void Position3()
+    {
+        Vector3 destination = Vector3.one;
+        int cpt = 0;
+        do
+        {
+            destination = new Vector3(Random.Range(1, 98), 1, Random.Range(1, 84));
+            cpt++;
+        }
+        while (Physics.CheckBox(destination, 2 * Vector3.one * player.GetComponent<CapsuleCollider>().radius));
+        Debug.Log("cpt " + cpt);
+
         this.transform.localPosition = destination;
     }
 
