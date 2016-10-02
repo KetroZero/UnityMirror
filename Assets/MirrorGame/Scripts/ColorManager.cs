@@ -90,21 +90,24 @@ public class ColorManager : MonoBehaviour
 
     private void AdminDebug()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Application.isEditor)
         {
-            SetNextColor();
-            Debug.Log("Player colour [" + playerColorIndex + " - " + characterColor[playerColorIndex] + "]");
-        }
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                SetNextColor();
+                Debug.Log("Player colour [" + playerColorIndex + " - " + characterColor[playerColorIndex] + "]");
+            }
 
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
-        {
-            bool active = !player.GetComponent<CapsuleCollider>().enabled;
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                bool active = !player.GetComponent<CapsuleCollider>().enabled;
 
-            player.GetComponent<CapsuleCollider>().enabled = active;
-            player.GetComponent<Rigidbody>().useGravity = active;
-            Camera.main.GetComponent<SphereCollider>().enabled = active;
+                player.GetComponent<CapsuleCollider>().enabled = active;
+                player.GetComponent<Rigidbody>().useGravity = active;
+                Camera.main.GetComponent<SphereCollider>().enabled = active;
 
-            Debug.Log("Player collider [" + (active ? "on" : "off") + "]");
+                Debug.Log("Player collider [" + (active ? "on" : "off") + "]");
+            }
         }
     }
 }
